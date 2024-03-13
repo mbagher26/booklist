@@ -18,7 +18,28 @@ export default class AddForm extends Component {
 
     submitHandler (event) {
         event.preventDefault();
-        
+        this.setState({
+            books:[this.state.title, this.state.author, this.state.year]
+        })
+        console.log(this.state.books)
+    }
+
+    titleHandler(event){
+        this.setState({
+            title: event.target.value
+        })
+    }
+
+    authorHandler(event){
+        this.setState({
+            author: event.target.value
+        })
+    }
+
+    yearHandler(event){
+        this.setState({
+            year: event.target.value
+        })
     }
 
     render() {
@@ -27,7 +48,7 @@ export default class AddForm extends Component {
                 <form id="book-form" autocomplete="off" onChange={(event)=>this.submitHandler(event)}>
                     <div className="form-group">
                         <label htmlFor="title">Title</label>
-                        <input type="text" id="title" value={this.state.title} onChange={event => this.titleHandler(event)} className="form-control" />
+                        <input type="text" id="title" value={this.state.title} onChange={(event) => this.titleHandler(event)} className="form-control" />
                     </div>
 
                     <div className="form-group">
