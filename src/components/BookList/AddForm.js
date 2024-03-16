@@ -18,8 +18,9 @@ export default class AddForm extends Component {
 
     submitHandler (event) {
         event.preventDefault();
+        if(this.state.title && this.state.author && this.state.year)
         this.setState({
-            books:[this.state.title, this.state.author, this.state.year]
+            books:[this.state.title, this.state.author, this.state.year,  this.state.books.length +1]
         })
         console.log(this.state.books)
     }
@@ -71,7 +72,10 @@ export default class AddForm extends Component {
                         </tr>
                     </thead>
                     <tbody id="book-list">
-                        <Book />
+                        {this.state.books.map(book => (
+                            <Book {...book}/>
+
+                        ))}
                     </tbody>
                 </table>
 
