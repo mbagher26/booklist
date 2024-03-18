@@ -18,10 +18,15 @@ export default class AddForm extends Component {
 
     submitHandler (event) {
         event.preventDefault();
-        if(this.state.title && this.state.author && this.state.year)
-        this.setState({
-            books:[this.state.title, this.state.author, this.state.year,  this.state.books.length +1]
-        })
+        if(this.state.title && this.state.author && this.state.year){
+            this.setState({
+                books:[{title:this.state.title,author:this.state.author,year:this.state.year,  id:this.state.books.length +1}]
+            })
+        }else{
+            this.setState({
+                books:[]
+            })
+        }
         console.log(this.state.books)
     }
 
@@ -46,7 +51,7 @@ export default class AddForm extends Component {
     render() {
         return (
             <>
-                <form id="book-form" autocomplete="off" onChange={(event)=>this.submitHandler(event)}>
+                <form id="book-form" autoComplete="off" onClick={(event)=>this.submitHandler(event)} >
                     <div className="form-group">
                         <label htmlFor="title">Title</label>
                         <input type="text" id="title" value={this.state.title} onChange={(event) => this.titleHandler(event)} className="form-control" />
@@ -72,10 +77,10 @@ export default class AddForm extends Component {
                         </tr>
                     </thead>
                     <tbody id="book-list">
-                        {this.state.books.map(book => (
-                            <Book {...book}/>
-
-                        ))}
+                        {this.state.books && this.state.books.map(book => (
+                            <Book {...book} key={book.id}/>
+                            ))}
+                            {console.log(typeof(this.state.books))}
                     </tbody>
                 </table>
 
