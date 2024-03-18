@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Book from './Book'
-
+import './AddForm.css'
 export default class AddForm extends Component {
 
     constructor() {
@@ -18,16 +18,24 @@ export default class AddForm extends Component {
 
     submitHandler (event) {
         event.preventDefault();
-        if(this.state.title && this.state.author && this.state.year){
+        let {title, author, year} = this.state
+
+        if(title && author && year){
+            let newBook = {
+                id: this.state.books.length + 1,
+                title,
+                author,
+                year
+            }
             this.setState({
-                books:[{title:this.state.title,author:this.state.author,year:this.state.year,  id:this.state.books.length +1}]
+                books:[...this.state.books, newBook]
             })
-        }else{
             this.setState({
-                books:[]
+                title: '',
+                author: '',
+                year: ''
             })
         }
-        console.log(this.state.books)
     }
 
     titleHandler(event){
@@ -80,7 +88,6 @@ export default class AddForm extends Component {
                         {this.state.books && this.state.books.map(book => (
                             <Book {...book} key={book.id}/>
                             ))}
-                            {console.log(typeof(this.state.books))}
                     </tbody>
                 </table>
 
